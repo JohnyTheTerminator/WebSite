@@ -1,0 +1,223 @@
+/* Base styles */
+#particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: linear-gradient(to bottom, #0f172a, #1e293b);
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+}
+
+.data-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#64748b 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.1;
+}
+
+/* Navigation styles */
+.logo-container {
+    position: relative;
+}
+
+.name-animation {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.initials {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.soft-glow {
+    text-shadow: 0 0 3px rgba(0, 180, 255, 0.5), 0 0 5px rgba(0, 180, 255, 0.3);
+    color: rgb(96, 165, 250);
+}
+
+.logo-container:hover .name-animation {
+    opacity: 1;
+}
+
+.logo-container:hover .initials {
+    opacity: 0;
+}
+
+/* Glassmorphism effects */
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+/* Tech stack styles */
+.tech-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background-color: rgba(30, 58, 138, 0.2);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    background-color: rgba(30, 58, 138, 0.3);
+}
+
+.tech-icon-container {
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #111b33;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+}
+
+.tech-icon-container:hover {
+    background-color: #151f3b;
+}
+
+/* Timeline styles */
+.timeline-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(59, 130, 246, 0.2) 5%,
+        rgba(59, 130, 246, 0.2) 95%,
+        transparent
+    );
+    transform: translateX(-50%);
+}
+
+/* Certificate styles */
+.certificate-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    position: relative;
+    padding: 2rem;
+    margin: 3rem 0;
+    border-radius: 12px;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.02)
+    );
+}
+
+.certificate-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Provider sections */
+.microsoft-section { border-left-color: #107C10; }
+.snowflake-section { border-left-color: #29B5E8; }
+.databricks-section { border-left-color: #FF3621; }
+.ibm-section { border-left-color: #1F70C1; }
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Profile Card styles */
+.profile-card {
+    background: rgba(17, 27, 51, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive styles */
+@media (min-width: 1920px) {
+    .glassmorphism {
+        backdrop-filter: blur(15px);
+        padding: 3rem;
+    }
+}
+
+@media (min-width: 2048px) {
+    .container {
+        max-width: 80%;
+    }
+    .tech-icon {
+        width: 4rem;
+        height: 4rem;
+    }
+    .tech-label {
+        font-size: 1.125rem;
+    }
+}
+
+@media (min-width: 2560px) {
+    .container {
+        max-width: 70%;
+    }
+    .tech-icon {
+        width: 5rem;
+        height: 5rem;
+    }
+    .tech-label {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 2rem;
+    }
+    .tech-stack {
+        display: none;
+    }
+}
