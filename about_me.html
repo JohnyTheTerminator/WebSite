@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Jan Šmída</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        '3xl': '1920px',
+                        '4xl': '2560px',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .profile-card {
+            background: rgba(17, 27, 51, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .text-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .text-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (min-width: 2048px) {
+            .container {
+                max-width: 80%;
+            }
+            .text-content {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (min-width: 2560px) {
+            .container {
+                max-width: 70%;
+            }
+            .text-content {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-white min-h-screen overflow-x-hidden">
+    <canvas id="particles-bg"></canvas>
+    <div class="data-grid"></div>
+
+    <div class="content-wrapper">
+        <!-- Navigation -->
+        <nav class="fixed w-full bg-[#0B1121] bg-opacity-90 backdrop-blur-sm z-50 py-4">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+                <div class="flex justify-between items-center">
+                    <!-- Logo -->
+                    <div class="logo-container flex-shrink-0">
+                        <a href="index.html" class="text-blue-400 text-2xl sm:text-3xl font-bold relative">
+                            <span class="absolute name-animation whitespace-nowrap">Jan Smida</span>
+                            <span class="initials soft-glow">JS</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex space-x-4 lg:space-x-8">
+                        <a href="about_me.html" 
+                           class="text-white hover:text-blue-400 transition-colors duration-300 text-base lg:text-lg px-3 py-2">
+                            About me
+                        </a>
+                        <a href="story_time.html" 
+                           class="text-gray-300 hover:text-white transition-colors duration-300 text-base lg:text-lg px-3 py-2">
+                            Story Time
+                        </a>
+                        <a href="credentials.html" 
+                           class="text-gray-300 hover:text-white transition-colors duration-300 text-base lg:text-lg px-3 py-2">
+                            Credentials
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" 
+                                class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" 
+                                      stroke-linejoin="round" 
+                                      stroke-width="2" 
+                                      d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Panel -->
+                <div id="mobile-menu" 
+                     class="hidden md:hidden absolute top-full left-0 right-0 bg-[#0B1121] bg-opacity-95 backdrop-blur-lg">
+                    <div class="px-4 py-4 space-y-3">
+                        <a href="about_me.html" 
+                           class="block text-white hover:text-blue-400 transition-colors duration-300 text-lg py-2">
+                            About me
+                        </a>
+                        <a href="story_time.html" 
+                           class="block text-gray-300 hover:text-white transition-colors duration-300 text-lg py-2">
+                            Story Time
+                        </a>
+                        <a href="credentials.html" 
+                           class="block text-gray-300 hover:text-white transition-colors duration-300 text-lg py-2">
+                            Credentials
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+<!-- Main Content -->
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-24 md:py-32">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 items-start">
+        <!-- Levá strana - Profilová fotka -->
+        <div class="relative">
+            <div class="profile-card w-full max-w-lg mx-auto rounded-2xl overflow-hidden">
+                <!-- Fotka -->
+                <div class="relative">
+                    <img src="static/Logo_pictures/profile_pic.png"
+                         class="w-full h-auto object-cover aspect-[4/5]"
+                         alt="Jan Šmída">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111b33] to-transparent opacity-50"></div>
+                </div>
+                
+                <!-- Text pod fotkou -->
+                <div class="text-center py-6 px-4 space-y-2 bg-[#111b33]">
+                    <h2 class="text-blue-400 text-xl sm:text-2xl lg:text-3xl font-semibold">
+                        Jan Šmída - Data Analyst
+                    </h2>
+                    <p class="text-gray-400 text-base sm:text-lg lg:text-xl">
+                        More than 3 years of experience in data analysis
+                    </p>
+                    <p class="text-gray-400 text-base sm:text-lg lg:text-xl">
+                        Specialized in automotive & logistics
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pravá strana - Text -->
+        <div class="space-y-6 md:space-y-8 text-content">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-semibold mb-8">
+                Hello dear reader,
+            </h1>
+            
+            <div class="text-content">
+                <p class="text-gray-300 text-base sm:text-lg lg:text-xl xl:text-2xl leading-relaxed mb-6">
+                    My journey into data analytics began with the completion of the Google Data Analyst Certificate, 
+                    a pivotal moment that opened the door to my first professional role at Volkswagen Financial Services. 
+                    This position marked the discovery of my deep passion for data, whether it was designing insightful 
+                    visual reports or automating complex processes to enhance efficiency. The hands-on experience I gained 
+                    during this time was invaluable, as it sharpened my ability to transform raw data into meaningful 
+                    insights and optimize operations for better decision-making.
+                </p>
+            </div>
+
+            <div class="text-content">
+                <p class="text-gray-300 text-base sm:text-lg lg:text-xl xl:text-2xl leading-relaxed mb-6">
+                    While at Volkswagen, I also completed my Bachelor's degree in International Business, which provided 
+                    me with a broader understanding of global business dynamics and deepened my analytical skills. 
+                    This academic milestone complemented my professional development and guided me toward exploring new 
+                    opportunities within the automotive industry, giving me a more well-rounded approach to tackling 
+                    complex business challenges.
+                </p>
+            </div>
+
+            <div class="text-content">
+                <p class="text-gray-300 text-base sm:text-lg lg:text-xl xl:text-2xl leading-relaxed">
+                    Today, I continue to apply my expertise at DODO, where I hold a dual role. As a Platform Developer, 
+                    I focus on building efficient and scalable automation solutions that streamline internal processes. 
+                    In addition, as a Data Quality Analyst, I am responsible for ensuring that our data remains accurate 
+                    and that our reports are both reliable and user-friendly, empowering the company to make confident, 
+                    data-driven decisions. My current position allows me to blend my technical skills with my business 
+                    acumen, making meaningful contributions to the organization's success.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+<!-- Skripty -->
+<script>
+    // Three.js background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ 
+        canvas: document.getElementById('particles-bg'), 
+        alpha: true 
+    });
+    
+    // Responzivní nastavení velikosti částic
+    const getParticleSize = () => {
+        if (window.innerWidth >= 2560) return 0.007;
+        if (window.innerWidth >= 1920) return 0.006;
+        return 0.005;
+    };
+
+    const setupParticles = () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = window.innerWidth < 768 ? 500 : 1000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 5;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: getParticleSize(),
+            color: '#4B91F7'
+        });
+
+        return new THREE.Points(particlesGeometry, particlesMaterial);
+    };
+
+    let particlesMesh = setupParticles();
+    scene.add(particlesMesh);
+    camera.position.z = 3;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.y += 0.001;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Intersection Observer pro text animace
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Odpojíme observer po animaci
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Pozorujeme všechny text-content elementy
+    document.querySelectorAll('.text-content').forEach((el) => {
+        observer.observe(el);
+    });
+
+    // Mobilní menu
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
+
+    mobileMenuButton.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.style.display = isMenuOpen ? 'block' : 'none';
+        
+        if (isMenuOpen) {
+            mobileMenu.style.opacity = '0';
+            mobileMenu.style.transform = 'translateY(-10px)';
+            requestAnimationFrame(() => {
+                mobileMenu.style.transition = 'all 0.3s ease';
+                mobileMenu.style.opacity = '1';
+                mobileMenu.style.transform = 'translateY(0)';
+            });
+        }
+    });
+
+    // Zavření menu při kliknutí mimo
+    document.addEventListener('click', (event) => {
+        if (isMenuOpen && !event.target.closest('#mobile-menu') && 
+            !event.target.closest('#mobile-menu-button')) {
+            isMenuOpen = false;
+            mobileMenu.style.display = 'none';
+        }
+    });
+
+    // Smooth scroll při načtení stránky
+    window.addEventListener('load', () => {
+        document.body.style.opacity = '0';
+        requestAnimationFrame(() => {
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '1';
+        });
+    });
+
+    // Optimalizace pro výkon při scrollování
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+
+        scrollTimeout = window.requestAnimationFrame(() => {
+            // Zde můžete přidat další scroll efekty
+        });
+    }, { passive: true });
+
+    // Responzivní handling
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Překreslení částic při změně velikosti
+            scene.remove(particlesMesh);
+            particlesMesh = setupParticles();
+            scene.add(particlesMesh);
+        }, 250);
+    });
+</script>
+</body>
+</html>
